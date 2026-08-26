@@ -195,59 +195,17 @@ tags_permitidas = ['strong', 'em', 'p', 'br']
 dados_limpos = bleach.clean(input_do_usuario, tags=tags_permitidas)
 # Resultado: "&lt;script&gt;alert('XSS')&lt;/script&gt;<strong>Texto Legítimo</strong>"
 
-Use code with caution.
-
-### 🛝 4. Roteiro Prontos para os Slides
-
-### Slide 1: Capa
-
-* **Título:** Segurança no Desenvolvimento Web: Pensando como Atacante, Construindo como Engenheiro
-* **Subtítulo:** OWASP Top 10 Prático com Python e Flask
-* **Facilitador:** [Seu Nome]
-
-### Slide 2: O Cenário Atual e Sistemas de Informação
-
-* **Abordagem Tradicional:** Fazer o software funcionar a qualquer custo (foco apenas em regras de negócio).
-* **O Problema:** Vulnerabilidades descobertas tardiamente geram prejuízos financeiros e quebra de conformidade (LGPD).
-* **A Solução:** *Security by Design* e *DevSecOps* — Integrar segurança em cada linha de código digitada.
-* **O Guia:** OWASP Top 10 como padrão global de mercado para mitigar os riscos mais críticos.
-
-### Slide 3: Módulo 1 - SQL Injection (O Ataque)
-
-* **O que é:** Injeção de comandos SQL arbitrários através de dados fornecidos pelo usuário.
-* **A Causa Raiz:** O backend aceita uma string única unificada (Código + Dado) sem separação prévia.
-* **Cenário Prático:** Injeção do payload ' OR '1'='1 para quebrar a lógica booleana da cláusula WHERE.
-
-### Slide 4: Módulo 1 - SQL Injection (A Correção)
-
-* **Estratégia Incorreta:** Tentar sanitizar strings manualmente com .replace("'", "") (Facilmente burlável).
-* **A Solução Definitiva:** Consultas Parametrizadas (*Prepared Statements* / Placeholders ?).
-* **Como Funciona:** O servidor pré-compila a estrutura rígida da query. O input entra estritamente como dado literal.
-
-### Slide 5: Módulo 2 - IDOR (O Ataque)
-
-* **O que é:** *Insecure Direct Object Reference* (Referência Direta Insegura a Objetos).
-* **A Causa Raiz:** O sistema confia no identificador numérico enviado diretamente pela requisição HTTP do cliente (URL ou JSON).
-* **Falha Conceitual:** Assumir que o fluxo da interface gráfica (UI) dita as regras de autorização do backend.
-
-### Slide 6: Módulo 2 - IDOR (A Correção)
-
-* **O Conceito:** Controle de Acesso Baseado em Atributos (ABAC).
-* **A Solução Definitiva:** Validação de Propriedade Cruzada no Servidor.
-* **Implementação:** Confrontar se o dono do registro no banco de dados bate com a sessão ativa do usuário antes de entregar o recurso.
-
-### Slide 7: Módulo 3 - XSS e Jinja2 (O Ataque)
-
-* **O que é:** *Cross-Site Scripting* (Injeção de Scripts no Lado do Cliente).
-* **Mecanismo do Flask:** O Jinja2 protege a aplicação por padrão através do *Auto-escaping*.
-* **A Falha Humana:** O desenvolvedor desativa essa segurança intencionalmente usando o filtro | safe para renderizar formatações de editores de texto estruturados.
-
-### Slide 8: Módulo 3 - XSS e Jinja2 (A Correção)
-
-* **A Solução Definitiva:** Sanitização Avançada de Árvore DOM através de uma Lista de Permissões (*Allowlist*).
-* **Uso da Biblioteca Bleach (Mozilla):** O Python reconstrói a estrutura HTML na memória, remove cirurgicamente tags invasoras (<script>) e atributos de eventos (onmouseover), mantendo a formatação visual segura.
-
-### Slide 9: Módulo 4 - Tratamento de Erros Seguro
-
-* **O Risco:** Exibir *Stack Traces* completos ou erros brutos do banco de dados na tela do usuário.
-* **O Impacto:** Vazamento de informações de infraestrutura (versão do banco, nomes de tabelas).
+@app.route('/invoice/view', methods=['GET'])
+def view_invoice_secure():
+    current_user = "alice" 
+    invoice_id = int(request.args.get('id'))
+    invoice = INVOICES.get(invoice_id)
+    
+    if not invoice:
+        return "Fatura não encontrada", 404
+        
+    # A CORREÇÃO: Controle de Acesso Baseado em Atributos (ABAC)
+    if invoice["user"] != current_user:
+        return "Acesso Negado: Você não tem permissão para ver este documento.", 403
+        
+    return jsonify(invoice)
