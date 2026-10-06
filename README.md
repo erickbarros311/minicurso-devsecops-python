@@ -1,153 +1,121 @@
-## 🔒 Minicurso Prático: Segurança Web com Python e Flask
+# 🛡️ Minicurso: Segurança no Desenvolvimento Web com Python (OWASP Top 10)
 
-Este documento contém o planejamento pedagógico completo, códigos-fonte, guia de laboratório e material para slides voltado para alunos de Sistemas de Informação.
+Bem-vindos ao repositório oficial do minicurso prático de Segurança em Backend com Python! 
 
-### 🗺️ 1. Cronograma e Configuração do Ambiente
-
-**Roadmap do Curso (4 Horas)**
-
-| Horário | Módulo | Foco Teórico | Atividade Prática | Correção Aplicada |
-| :--- | :--- | :--- | :--- | :--- |
-| **00h - 01h** | 1: SQL Injection | OWASP Top 10 e Árvores SQL | Burlar login com `' OR '1'='1` | Consultas Parametrizadas |
-| **01h - 02h** | 2: IDOR | Controle de Acesso e HTTP | Alterar URL para acessar dados | Validação de escopo (ABAC) |
-| **02h - 03h** | 3: XSS | Texto Puro vs Execução DOM | Roubo de cookies via Jinja2 | Sanitização com *Bleach* |
-| **03h - 04h** | 4: Avaliação | Tomada de Decisão | Desafio CTF ou Quiz Teórico | Revisão Geral |
-
-**Guia de Configuração (Terminal e Dependências)**
-
-Crie um arquivo `requirements.txt` na raiz do repositório:
-
-```text
-Flask==3.0.3
-SQLAlchemy==2.0.31
-bleach==6.1.0
-Werkzeug==3.0.3
-```
-
-Execute os comandos abaixo para configurar o laboratório:
-
-```bash
-# 1. Clonar o repositório e acessar a pasta
-git clone https://github.com/SEU_USUARIO_GITHUB/minicurso-devsecops-python.git
-cd minicurso-devsecops-python
-
-# 2. Criar e ativar o ambiente virtual (Windows PowerShell / Linux)
-python -m venv venv
-.\venv\Scripts\Activate.ps1  # Windows
-source venv/bin/activate     # Linux/Mac
-
-# 3. Instalar dependências
-pip install -r requirements.txt
-```
+Neste laboratório, vamos explorar na prática três das principais vulnerabilidades mapeadas pelo **OWASP Top 10**: SQL Injection (SQLi), Insecure Direct Object Reference (IDOR) e Cross-Site Scripting (XSS). Usaremos o **OWASP Juice Shop** para a fase de ataque e uma aplicação **Flask (Python)** para a fase de defesa e correção de código.
 
 ---
 
-### 🏛️ 2. Módulo 1 e 2: Vulnerabilidades de Backend (SQLi e IDOR)
+## 🛠️ Como subir o ambiente na sua máquina
 
-**SQL Injection (SQLi)**
-A concatenação direta de strings cria a vulnerabilidade. Ao utilizar o caractere `?` (Placeholders), o banco de dados pré-compila a query, tratando o input estritamente como texto.
+Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de dependências, utilizaremos o **Docker**.
 
+### Pré-requisitos
+* [Docker](https://docs.docker.com/get-docker/) instalado.
+* [Docker Compose](https://docs.docker.com/compose/install/) instalado (já embutido nas versões recentes do Docker Desktop).
+* Um cliente de requisições HTTP (Postman, Insomnia, Hoppscotch) ou o próprio navegador.
+
+### Passo a passo
+1. Clone este repositório:
+   ```bash
+   git clone [https://github.com/seu-usuario/minicurso-owasp-python.git](https://github.com/seu-usuario/minicurso-owasp-python.git)
+   cd minicurso-owasp-python
+   ```
+2. Suba os containers do laboratório:
+   ```bash
+   docker compose up -d --build
+   ```
+3. Verifique se os serviços estão no ar:
+   * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
+
+---
+
+## 💻 Desafios de Código (O que vamos corrigir hoje)
+
+Abaixo estão os trechos de código do nosso backend Python (`ctf_app.py`) que contêm falhas críticas de segurança. Durante a aula, discutiremos por que eles são perigosos e como corrigi-los. 
+
+> ⚠️ **Atenção:** As versões corrigidas (Gabarito) serão postadas nos espaços em branco ao final do minicurso!
+
+### Desafio 1: SQL Injection (SQLi)
+**Local:** Rota `/ctf/api/login`  
+**O Problema:** A aplicação recebe os dados do usuário e concatena diretamente na string da query SQL, permitindo manipulação da lógica de autenticação.
+
+🔴 **Código Vulnerável:**
 ```python
-from flask import Flask, request
-import sqlite3
-
-app = Flask(__name__)
-
-# ❌ CÓDIGO VULNERÁVEL (app_vulnerable.py)
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    cursor = db.cursor()
+@app.route('/ctf/api/login', methods=['POST'])
+def ctf_login():
+    user = request.json.get('username', '')
+    pwd = request.json.get('password', '')
     
-    # ERRO: Concatenação direta de strings
-    query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+    # ❌ VULNERABILIDADE: Concatenação direta de strings na query
+    query = f"SELECT username, flag FROM ctf_users WHERE username = '{user}' AND password = '{pwd}'"
+    
     cursor.execute(query)
-    
-    if cursor.fetchone():
-        return "<h1>Login efetuado com sucesso.</h1>"
-    return "<h1>Usuário ou senha incorretos.</h1>", 401
-
-# ✅ CÓDIGO CORRIGIDO (app_secure.py)
-@app.route('/login_secure', methods=['POST'])
-def login_secure():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    cursor = db.cursor()
-    
-    # CORREÇÃO: Uso de consultas parametrizadas
-    query = "SELECT * FROM users WHERE username = ? AND password = ?"
-    cursor.execute(query, (username, password))
-    
-    if cursor.fetchone():
-        return "<h1>Login efetuado com sucesso!</h1>"
-    return "<h1>Falha na autenticação.</h1>", 401
+    # ... resto do código ...
 ```
 
-**IDOR (Insecure Direct Object References)**
-O sistema não deve confiar no ID enviado pelo cliente. É preciso validar a identidade (sessão) e confrontar com o proprietário do dado no banco (ABAC).
-
+🟢 **Código Corrigido (Será liberado após o minicurso):**
 ```python
-from flask import Flask, request, jsonify
-
-INVOICES = {
-    1: {"user": "alice", "valor": "R$ 150,00"},
-    2: {"user": "bob", "valor": "R$ 5.000,00"}
-}
-
-# ❌ CÓDIGO VULNERÁVEL
-@app.route('/invoice/view', methods=['GET'])
-def view_invoice():
-    invoice_id = int(request.args.get('id'))
-    invoice = INVOICES.get(invoice_id) # ERRO: Não checa quem é o dono
-    
-    return jsonify(invoice) if invoice else ("Não encontrada", 404)
-
-# ✅ CÓDIGO CORRIGIDO
-@app.route('/invoice/view_secure', methods=['GET'])
-def view_invoice_secure():
-    current_user = "alice" # Simulação de sessão
-    invoice_id = int(request.args.get('id'))
-    invoice = INVOICES.get(invoice_id)
-    
-    if not invoice:
-        return "Fatura não encontrada", 404
-        
-    # CORREÇÃO: Controle de Acesso Baseado em Atributos (ABAC)
-    if invoice["user"] != current_user:
-        return "Acesso Negado.", 403
-        
-    return jsonify(invoice)
+# [O CÓDIGO SEGURO COM QUERIES PARAMETRIZADAS SERÁ POSTADO AQUI]
 ```
 
 ---
 
-### 🎨 3. Módulo 3: Frontend e XSS (Cross-Site Scripting)
+### Desafio 2: Insecure Direct Object Reference (IDOR)
+**Local:** Rota `/ctf/api/orders/<int:order_id>`  
+**O Problema:** A API confia cegamente no identificador (`order_id`) passado na URL, sem verificar se o usuário autenticado realmente tem permissão para acessar aquele pedido.
 
-O Jinja2 protege contra XSS nativamente, mas o uso da flag `| safe` abre brechas. A solução é higienizar a entrada com uma *allowlist* usando a biblioteca Bleach.
-
+🔴 **Código Vulnerável:**
 ```python
-import bleach
+@app.route('/ctf/api/orders/<int:order_id>', methods=['GET'])
+def ctf_get_order(order_id):
+    # ❌ VULNERABILIDADE: Busca o pedido apenas pelo ID, sem checar a posse (user_id)
+    cursor.execute("SELECT id, user_id, item, flag_note FROM ctf_orders WHERE id = ?", (order_id,))
+    order = cursor.fetchone()
+    # ... resto do código ...
+```
 
-input_do_usuario = "<script>alert('XSS')</script><strong>Texto Legítimo</strong>"
-tags_permitidas = ['strong', 'em', 'p', 'br']
-
-# O Python reconstrói a árvore DOM e remove elementos maliciosos
-dados_limpos = bleach.clean(input_do_usuario, tags=tags_permitidas)
-
-print(dados_limpos)
-# Saída: &lt;script&gt;alert('XSS')&lt;/script&gt;<strong>Texto Legítimo</strong>
+🟢 **Código Corrigido (Será liberado após o minicurso):**
+```python
+# [O CÓDIGO SEGURO COM CONTROLE DE ACESSO BASEADO EM IDENTIDADE (BOLA) SERÁ POSTADO AQUI]
 ```
 
 ---
 
-### 🛝 4. Estrutura Base para os Slides
+### Desafio 3: Cross-Site Scripting (XSS) Stored
+**Local:** Rota `/ctf/reviews` e Template HTML  
+**O Problema:** O backend aceita textos com tags HTML maliciosas (`<script>`) e o template renderiza esse conteúdo no navegador dos outros usuários sem realizar o escape (sanitização).
 
-*   **Introdução e Cenário:** 
-    *   O problema da abordagem tradicional (foco apenas em regras de negócio).
-    *   A solução via *Security by Design*, integração *DevSecOps* e o padrão global OWASP Top 10.
-*   **Ataques e Defesas:**
-    *   **SQLi:** A causa raiz é a união de código e dado. Defesa: *Prepared Statements*. Evite sanitização manual (ex: `.replace()`).
-    *   **IDOR:** A causa raiz é assumir que o fluxo da UI dita as regras de autorização. Defesa: Validação de Propriedade Cruzada no Servidor (ABAC).
-    *   **XSS:** A injeção de scripts no cliente, geralmente causada por desativar o *Auto-escaping*. Defesa: Sanitização avançada de DOM (ex: *Bleach*).
-*   **Tratamento de Erros:** Exibir *Stack Traces* completos vaza informações sensíveis de infraestrutura. Trate exceções silenciosamente no frontend e gere logs seguros no backend.
+🔴 **Código Vulnerável:**
+```python
+# No backend: Salva o texto bruto direto no banco de dados
+cursor.execute("INSERT INTO ctf_reviews (author, comment) VALUES (?, ?)", (author, comment))
+```
+```html
+<!-- No Frontend (Jinja2): O uso do filtro | safe desabilita a proteção nativa -->
+<div class="review">
+    <strong>{{ r[0] }}</strong>: <span>{{ r[1] | safe }}</span>
+</div>
+```
+
+🟢 **Código Corrigido (Será liberado após o minicurso):**
+```python
+# [O CÓDIGO SEGURO UTILIZANDO A BIBLIOTECA BLEACH PARA SANITIZAÇÃO SERÁ POSTADO AQUI]
+```
+
+---
+
+## 🚩 Mini-CTF (Capture The Flag)
+
+Ao final da nossa análise, vocês colocarão o chapéu de atacante ("Red Team") e tentarão explorar essas vulnerabilidades no nosso servidor local Flask (porta 5050) para roubar as **Flags** (ex: `FLAG{texto_da_flag}`).
+
+- **Desafio 1 (SQLi):** Encontre a chave do cofre do usuário "admin".
+- **Desafio 2 (IDOR):** Acesse as notas do pedido de número 101.
+- **Desafio 3 (XSS):** Roube o cookie de sessão do Moderador.
+
+As pontuações serão registradas ao vivo no nosso painel do CTFd. Boa sorte e bom hacking (ético)!
+
+---
+*Minicurso ministrado no XV TECVALE - Encontro Tecnológico do Vale do São Francisco.*  
+*Centro Universitário do Vale do São Francisco - UNIRIOS
+*Desenvolvido pelo Professor: Erick Barros Nascimento*
