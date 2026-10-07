@@ -117,5 +117,5 @@ As pontuações serão registradas ao vivo no nosso painel do CTFd. Boa sorte e 
 
 ---
 *Minicurso ministrado no XV TECVALE - Encontro Tecnológico do Vale do São Francisco.*  
-*Centro Universitário do Vale do São Francisco - UNIRIOS
+*Centro Universitário do Vale do São Francisco - UNIRIOS*
 *Desenvolvido pelo Professor: Erick Barros Nascimento*
