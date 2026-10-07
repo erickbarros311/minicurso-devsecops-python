@@ -30,7 +30,7 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 
 ---
 
-## 💻 Desafios de Código (O que vamos corrigir hoje)
+## 💻 Desafios de Código (O alcance esperado)
 
 Abaixo estão os trechos de código do nosso backend Python (`ctf_app.py`) que contêm falhas críticas de segurança. Durante a aula, discutiremos por que eles são perigosos e como corrigi-los. 
 
