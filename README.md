@@ -116,6 +116,6 @@ Ao final da nossa análise, vocês colocarão o chapéu de atacante ("Red Team")
 As pontuações serão registradas ao vivo no nosso painel do CTFd. Boa sorte e bom hacking (ético)!
 
 ---
-*Minicurso ministrado no XV TECVALE - Encontro Tecnológico do Vale do São Francisco.*  
-*Centro Universitário do Vale do São Francisco - UNIRIOS*
-*Desenvolvido pelo Professor: Erick Barros Nascimento*
+*Minicurso - XV TECVALE - Encontro Tecnológico do Vale do São Francisco.*  
+*Centro Universitário do Vale do São Francisco - UNIRIOS.*
+*Desenvolvido pelo Professor: Erick Barros Nascimento.*
