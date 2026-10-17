@@ -54,7 +54,7 @@ def ctf_login():
     # ... resto do código ...
 ```
 
-🟢 **Código Corrigido (Será liberado após o minicurso):**
+🟢 **Código Corrigido (Será liberado durante o minicurso):**
 ```python
 # [O CÓDIGO SEGURO COM QUERIES PARAMETRIZADAS SERÁ POSTADO AQUI]
 ```
@@ -75,7 +75,7 @@ def ctf_get_order(order_id):
     # ... resto do código ...
 ```
 
-🟢 **Código Corrigido (Será liberado após o minicurso):**
+🟢 **Código Corrigido (Será liberado durante o minicurso):**
 ```python
 # [O CÓDIGO SEGURO COM CONTROLE DE ACESSO BASEADO EM IDENTIDADE (BOLA) SERÁ POSTADO AQUI]
 ```
@@ -98,7 +98,7 @@ cursor.execute("INSERT INTO ctf_reviews (author, comment) VALUES (?, ?)", (autho
 </div>
 ```
 
-🟢 **Código Corrigido (Será liberado após o minicurso):**
+🟢 **Código Corrigido (Será liberado durante o minicurso):**
 ```python
 # [O CÓDIGO SEGURO UTILIZANDO A BIBLIOTECA BLEACH PARA SANITIZAÇÃO SERÁ POSTADO AQUI]
 ```
