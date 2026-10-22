@@ -30,6 +30,20 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 
 ### Segunda alternativa (através do VirtualBox)
 
+1. Copie a máquina virtual empacotada no formato OVA:
+   ```bash
+   git clone [https://github.com/seu-usuario/minicurso-owasp-python.git](https://github.com/seu-usuario/minicurso-owasp-python.git)
+   cd minicurso-owasp-python
+   ```
+2. Suba os containers do laboratório:
+   ```bash
+   docker compose up -d --build
+   ```
+3. Verifique se os serviços estão no ar:
+   * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
+
+
+
 
 ---
 
