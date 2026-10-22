@@ -18,12 +18,12 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 ### Passo a passo
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/seu-usuario/minicurso-owasp-python.git](https://github.com/seu-usuario/minicurso-owasp-python.git)
-   cd minicurso-owasp-python
+   caminho: \\g7clab03-000\dados$
    ```
-2. Suba os containers do laboratório:
+2. Importe a máquina vm no virtualbox
    ```bash
-   docker compose up -d --build
+   obs.: quando aparecer perguntando para onde será instalado a VM, aponte para o disco local D, exemplo: D:\Virtual Box VMs
+         o sistema irá criar o diretório automáticamente
    ```
 3. Verifique se os serviços estão no ar:
    * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
