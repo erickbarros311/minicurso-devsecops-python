@@ -18,22 +18,6 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 ### Passo a passo
 1. Clone este repositório:
    ```bash
-   caminho: \\g7clab03-000\dados$
-   ```
-2. Importe a máquina vm no virtualbox
-   ```bash
-   obs.: quando aparecer perguntando para onde será instalado a VM, aponte para o disco local D, exemplo: D:\Virtual Box VMs
-         o sistema irá criar o diretório automáticamente
-   ```
-3. Verifique se os serviços estão no ar:
-   * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
-
-### Segunda alternativa (através do VirtualBox)
-
-1. Crie um diretório na unidadade D: da máquina do aluno
-
-2. Copie a máquina virtual empacotada no formato OVA:
-   ```bash
    git clone [https://github.com/seu-usuario/minicurso-owasp-python.git](https://github.com/seu-usuario/minicurso-owasp-python.git)
    cd minicurso-owasp-python
    ```
@@ -43,6 +27,52 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
    ```
 3. Verifique se os serviços estão no ar:
    * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
+
+### Segunda alternativa (através do VirtualBox)
+# JuiceShopped
+Unofficial VirtualBox virtual machine instance of OWASP Juice Shop
+### Contributors: [Aut0exec](https://aut0exec.blogspot.com)
+
+1. Crie um diretório na unidadade D: da máquina do aluno
+
+2. Copie a máquina virtual empacotada no formato OVA:
+   ```bash
+      caminho: \\g7clab03-000\dados$
+   ```
+
+3. Importe a máquina vm no virtualbox
+   ```bash
+   obs.: quando aparecer perguntando para onde será instalado a VM, aponte para o disco local D, exemplo: D:\Virtual Box VMs
+         o sistema irá criar o diretório automáticamente
+   ```
+## Features
+	- Devuan Excalibur instance
+	- Pre-installed and configured to auto start on boot
+		- OWASP Juice Shop version 19.0.0 Node 20
+		- VAmPI - Vulnerable API
+
+## Relevant Information
+
+While there shouldn't be a need to log in to the console, should one need to, the information is as follows:
+
+Low privilege user  - __user__:__Password123__
+
+Root privilege user - __root__:__juiceisworththesqueeze__
+
+## Installation
+
+__WARNING!__ Juice Shop is designed to be vulnerable. __DO NOT__ connect this VM to the Internet or sensitive networks.
+
+1. Download the OVA from the [releases page](https://github.com/aut0exec/JuiceShopped/releases)
+1. Launch virtualbox
+1. File -> Import Appliance
+1. Under the source section, select Local File System and then navigate to the location where the OVA file was downloaded
+1. The default settings should be sufficient on the right side of the import window
+1. Click Import in the bottom right to import the appliance
+1. Once the import finishes, start Juice Shop. The machine expects a DHCP server to be present and will automatically request an address.
+	- VirtualBox will automatically configure port forwards from the host to the guest for ports TCP/3000 and TCP/5000. Any scanning or interaction from the host with the virtual machine can be done via 127.0.0.1:3000 or 127.0.0.1:5000.
+
+
 
 
 
