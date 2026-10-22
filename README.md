@@ -10,7 +10,7 @@ Neste laboratório, vamos explorar na prática três das principais vulnerabilid
 
 Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de dependências, utilizaremos o **Docker**.
 
-### Pré-requisitos
+### Pré-requisitos (Se já estiver instalado e com as devidas permissões)
 * [Docker](https://docs.docker.com/get-docker/) instalado.
 * [Docker Compose](https://docs.docker.com/compose/install/) instalado (já embutido nas versões recentes do Docker Desktop).
 * Um cliente de requisições HTTP (Postman, Insomnia, Hoppscotch) ou o próprio navegador.
@@ -27,6 +27,9 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
    ```
 3. Verifique se os serviços estão no ar:
    * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
+
+### Segunda alternativa (através do VirtualBox)
+
 
 ---
 
