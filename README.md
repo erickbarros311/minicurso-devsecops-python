@@ -16,6 +16,7 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 * Um cliente de requisições HTTP (Postman, Insomnia, Hoppscotch) ou o próprio navegador.
 
 ### Passo a passo
+
 1. Clone este repositório:
    ```bash
    git clone [https://github.com/seu-usuario/minicurso-owasp-python.git](https://github.com/seu-usuario/minicurso-owasp-python.git)
@@ -28,9 +29,10 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 3. Verifique se os serviços estão no ar:
    * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
 
-### Segunda alternativa (através do VirtualBox)
-# JuiceShopped
+### Segunda alternativa (através do VirtualBox) - JuiceShopped
+
 Unofficial VirtualBox virtual machine instance of OWASP Juice Shop
+
 ### Contributors: [Aut0exec](https://aut0exec.blogspot.com)
 
 1. Crie um diretório na unidadade D: da máquina do aluno
@@ -39,7 +41,6 @@ Unofficial VirtualBox virtual machine instance of OWASP Juice Shop
    ```bash
       caminho: \\g7clab03-000\dados$
    ```
-
 3. Importe a máquina vm no virtualbox
    ```bash
    obs.: quando aparecer perguntando para onde será instalado a VM, aponte para o disco local D, exemplo: D:\Virtual Box VMs
@@ -59,23 +60,18 @@ Low privilege user  - __user__:__Password123__
 
 Root privilege user - __root__:__juiceisworththesqueeze__
 
-## Installation
+## Installation - source page
 
 __WARNING!__ Juice Shop is designed to be vulnerable. __DO NOT__ connect this VM to the Internet or sensitive networks.
 
 1. Download the OVA from the [releases page](https://github.com/aut0exec/JuiceShopped/releases)
-1. Launch virtualbox
-1. File -> Import Appliance
-1. Under the source section, select Local File System and then navigate to the location where the OVA file was downloaded
-1. The default settings should be sufficient on the right side of the import window
-1. Click Import in the bottom right to import the appliance
-1. Once the import finishes, start Juice Shop. The machine expects a DHCP server to be present and will automatically request an address.
+2. Launch virtualbox
+3. File -> Import Appliance
+4. Under the source section, select Local File System and then navigate to the location where the OVA file was downloaded
+5. The default settings should be sufficient on the right side of the import window
+6. Click Import in the bottom right to import the appliance
+7. Once the import finishes, start Juice Shop. The machine expects a DHCP server to be present and will automatically request an address.
 	- VirtualBox will automatically configure port forwards from the host to the guest for ports TCP/3000 and TCP/5000. Any scanning or interaction from the host with the virtual machine can be done via 127.0.0.1:3000 or 127.0.0.1:5000.
-
-
-
-
-
 
 ---
 
