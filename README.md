@@ -30,11 +30,12 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 2. Para as práticas de aprendizagem, todos os apps rodam facilmente com os comandos:
    ```bash
     # Via python
-   		1 - crie um diretório na unidade D, entre no diretório, crie o ambiente virtual com: python3 -m venv venv
+   		1 - crie um diretório na unidade D, entre no diretório, crie o ambiente
+   			virtual com: python3 -m venv venv
    			1.1 - para ativar o virtual env faça: venv\Scripts\activate.bat
    			1.2 - rodde o app com python 3 [nome do app].py
     # Nodejs (pratica 2)
-   		1 - crie um diretóti chamado node e faça:
+   		1 - crie um diretório chamado node e faça:
    			1.1 - node init -y
    			1.2 - npm install express
    			1.3 - copie o app nodejs para esse diretório
