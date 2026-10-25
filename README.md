@@ -49,7 +49,7 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 
 Unofficial VirtualBox virtual machine instance of OWASP Juice Shop
 
-### Contributors: [Aut0exec](https://aut0exec.blogspot.com)
+### Credits: [Aut0exec](https://aut0exec.blogspot.com)
 
 1. Crie um diretório na unidadade D: da máquina do aluno
 
