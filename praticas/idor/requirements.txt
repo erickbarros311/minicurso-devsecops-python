@@ -1,0 +1,16 @@
+passo a passo para configurar o nodejs
+
+mkdir idor-lab
+cd idor-lab
+npm init -y
+npm install express
+
+--------
+
+copia os códigos para dentro do diretório
+
+roda o comando
+
+node nomde_do_app.js
+
+

