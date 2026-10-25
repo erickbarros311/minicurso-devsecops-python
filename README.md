@@ -1,4 +1,4 @@
-# 🛡️ Minicurso: Segurança no Desenvolvimento Web com Python
+## 🛡️ Minicurso: Segurança no Desenvolvimento Web com Python
 
 Bem-vindos ao repositório oficial do minicurso prático de Segurança em Backend com Python! 
 
