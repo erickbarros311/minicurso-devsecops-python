@@ -17,17 +17,32 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 
 ### Passo a passo
 
-1. Clone este repositório:
+1. Pegue os arquivos deste repositório:
    ```bash
-   git clone [https://github.com/seu-usuario/minicurso-owasp-python.git](https://github.com/seu-usuario/minicurso-owasp-python.git)
-   cd minicurso-owasp-python
+	# Assumindo que o WSL do Windows com Ubuntu min 20.04 está instalado faça:
+   		1 - crie uma pasta na home do ubuntu (usando o explorer do win mesmo)
+   		2 - copie o script do diretório desafio_app_via_docker
+   		3 - abra o WSL, e vá até o diretório criado
+   		4 - rode o script setup_lab com o comando sh [nome do script]
+   		5 - Pronto! A suite de desafios da equipe estará pronta
+    # 
    ```
-2. Suba os containers do laboratório:
+2. Para as práticas de aprendizagem, todos os apps rodam facilmente com os comandos:
    ```bash
-   docker compose up -d --build
-   ```
-3. Verifique se os serviços estão no ar:
+    # Via python
+   		1 - crie um diretório na unidade D, entre no diretório, crie o ambiente virtual com: python3 -m venv venv
+   			1.1 - para ativar o virtual env faça: venv\Scripts\activate.bat
+   			1.2 - rodde o app com python 3 [nome do app].py
+    # Nodejs (pratica 2)
+   		1 - crie um diretóti chamado node e faça:
+   			1.1 - node init -y
+   			1.2 - npm install express
+   			1.3 - copie o app nodejs para esse diretório
+   			1.4 - execute o app com node app.js
+      ```
+3. Verifique se os serviços estão no ar (Só no Desafio):
    * **Lab CTF Flask (Alvo de Defesa):** `http://localhost:5050`
+
 
 ### Segunda alternativa (através do VirtualBox) - JuiceShopped
 
