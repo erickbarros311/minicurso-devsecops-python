@@ -43,8 +43,8 @@ Unofficial VirtualBox virtual machine instance of OWASP Juice Shop
    ```
 3. Importe a máquina vm no virtualbox
    ```bash
-   obs.: quando aparecer perguntando para onde será instalado a VM, aponte para o disco local D, exemplo: D:\Virtual Box VMs
-         o sistema irá criar o diretório automáticamente
+   obs.: quando aparecer perguntando para onde será instalado a VM, aponte para o disco local D,
+   exemplo: D:\Virtual Box VMs o sistema irá criar o diretório automáticamente
    ```
 ## Features
 	- Devuan Excalibur instance
