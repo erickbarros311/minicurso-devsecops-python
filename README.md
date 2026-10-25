@@ -20,7 +20,7 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 1. Pegue os arquivos deste repositório:
    ```bash
 	# Assumindo que o WSL do Windows com Ubuntu min 20.04 está instalado faça:
-   		1 - crie uma pasta na home do ubuntu (usando o explorer do win mesmo)
+   		1 - crie uma pasta na home do Ubuntu (usando o explorer do win mesmo)
    		2 - copie o script do diretório desafio_app_via_docker
    		3 - abra o WSL, e vá até o diretório criado
    		4 - rode o script setup_lab com o comando sh [nome do script]
