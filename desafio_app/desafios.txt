@@ -1,0 +1,37 @@
+===================================================================
+       DESAFIO PRÁTICO: MINI-CTF DE SEGURANÇA WEB (FLASK & OWASP)
+===================================================================
+Regras:
+1. O formato de cada flag é sempre: FLAG{texto_aqui}
+2. Ataques de negação de serviço (DoS/DDoS) ou brute-force em massa
+   são estritamente proibidos.
+3. Submeta as flags individualmente ou com sua dupla no formulário.
+
+-------------------------------------------------------------------
+DESAFIO 1: "A Chave do Cofre" [100 Pontos]
+-------------------------------------------------------------------
+Contexto: Um portal interno possui um endpoint de login JSON em:
+  POST http://<IP_DO_LAB>:5050/ctf/api/login
+Payload de requisição:
+  {"username": "...", "password": "..."}
+Missão: Faça bypass da autenticação para recuperar os dados 
+confidenciais do usuário "admin" sem saber sua senha.
+
+-------------------------------------------------------------------
+DESAFIO 2: "Pedido Fantasma" [150 Pontos]
+-------------------------------------------------------------------
+Contexto: Você acabou de realizar uma compra e seu recibo está em:
+  GET http://<IP_DO_LAB>:5050/ctf/api/orders/102
+Missão: Descubra e visualize as notas secretas do pedido da diretoria 
+(ID 101) manipulando a referência direta do objeto.
+
+-------------------------------------------------------------------
+DESAFIO 3: "O Cookie do Moderador" [250 Pontos]
+-------------------------------------------------------------------
+Contexto: Acesse pelo navegador:
+  http://<IP_DO_LAB>:5050/ctf/reviews
+Missão: O sistema exibe os comentários dos usuários sem a devida 
+sanitização. Injete um código JavaScript que acesse e exiba o 
+cookie de sessão que contém a Flag.
+Dica: payloads com alert(document.cookie) são seus amigos aqui.
+===================================================================
