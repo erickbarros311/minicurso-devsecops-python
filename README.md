@@ -115,9 +115,31 @@ def ctf_login():
     # ... resto do código ...
 ```
 
-🟢 **Código Corrigido (Será liberado durante o minicurso):**
+🟢 **Código Corrigido (Minicurso finalizado e correção do código abaixo):**
 ```python
-# [O CÓDIGO SEGURO COM QUERIES PARAMETRIZADAS SERÁ POSTADO AQUI]
+@app.route('/ctf/api/login', methods=['POST'])
+def ctf_login():
+    user = request.json.get('username', '')
+    pwd = request.json.get('password', '')
+    
+    conn = sqlite3.connect("ctf.db")
+    cursor = conn.cursor()
+    
+    # ✅ CORREÇÃO: Uso de interrogações (?) como placeholders seguros
+    query = "SELECT username, flag FROM ctf_users WHERE username = ? AND password = ?"
+    
+    try:
+        # Os valores são passados como uma tupla no segundo argumento do execute()
+        cursor.execute(query, (user, pwd))
+        account = cursor.fetchone()
+        
+        if account:
+            return jsonify({"status": "Autenticado!", "usuario": account[0], "dado_confidencial": account[1]})
+        return jsonify({"erro": "Credenciais invalidas"}), 401
+    except Exception as e:
+        return jsonify({"db_error": str(e)}), 500
+    finally:
+        conn.close()
 ```
 
 ---
@@ -136,9 +158,27 @@ def ctf_get_order(order_id):
     # ... resto do código ...
 ```
 
-🟢 **Código Corrigido (Será liberado durante o minicurso):**
+🟢 **Código Corrigido (Minicurso finalizado e correção do código abaixo):**
 ```python
-# [O CÓDIGO SEGURO COM CONTROLE DE ACESSO BASEADO EM IDENTIDADE (BOLA) SERÁ POSTADO AQUI]
+@app.route('/ctf/api/orders/<int:order_id>', methods=['GET'])
+def ctf_get_order(order_id):
+    # Simulação: Em uma aplicação real, extraímos isso do JWT ou da sessão ativa (session['user_id'])
+    current_user_id = 2 
+    
+    conn = sqlite3.connect("ctf.db")
+    cursor = conn.cursor()
+    
+    # ✅ CORREÇÃO: A query exige que o pedido solicitado pertença ao usuário logado
+    query = "SELECT id, user_id, item, flag_note FROM ctf_orders WHERE id = ? AND user_id = ?"
+    cursor.execute(query, (order_id, current_user_id))
+    order = cursor.fetchone()
+    conn.close()
+    
+    if not order:
+        # Retornar 404 de forma genérica evita vazar a existência do ID de outro usuário
+        return jsonify({"erro": "Pedido nao encontrado"}), 404
+        
+    return jsonify({"order_id": order[0], "item": order[2], "observacoes": order[3]})
 ```
 
 ---
@@ -159,9 +199,29 @@ cursor.execute("INSERT INTO ctf_reviews (author, comment) VALUES (?, ?)", (autho
 </div>
 ```
 
-🟢 **Código Corrigido (Será liberado durante o minicurso):**
+🟢 **Código Corrigido (Minicurso finalizado e correção do código abaixo):**
 ```python
-# [O CÓDIGO SEGURO UTILIZANDO A BIBLIOTECA BLEACH PARA SANITIZAÇÃO SERÁ POSTADO AQUI]
+import bleach
+
+# Lista explícita do que é permitido (Allowlist de tags seguras)
+ALLOWED_TAGS = ['b', 'i', 'strong', 'em', 'p']
+
+@app.route('/ctf/reviews', methods=['GET', 'POST'])
+def ctf_reviews():
+    conn = sqlite3.connect("ctf.db")
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        raw_comment = request.form.get('comment', '')
+        author = request.form.get('author', 'Anonimo')
+        
+        # ✅ CORREÇÃO NO BACKEND: Limpa o input removendo tags JavaScript/HTML não autorizadas
+        clean_comment = bleach.clean(raw_comment, tags=ALLOWED_TAGS, strip=True)
+        
+        cursor.execute("INSERT INTO ctf_reviews (author, comment) VALUES (?, ?)", (author, clean_comment))
+        conn.commit()
+
+    # ... restante do código de renderização do template ...
 ```
 
 ---
