@@ -93,7 +93,7 @@ __WARNING!__ Juice Shop is designed to be vulnerable. __DO NOT__ connect this VM
 
 ## 💻 Desafios de Código (O alcance esperado)
 
-Abaixo estão os trechos de código do nosso backend Python (`ctf_app.py`) que contêm falhas críticas de segurança. Durante a aula, discutiremos por que eles são perigosos e como corrigi-los. 
+Abaixo estão os trechos de código do nosso backend Python (`ctf_app.py`) que contêm falhas críticas de segurança. Durante a aula, foram explicados o por que eles são perigosos e como corrigi-los. 
 
 > ⚠️ **Atenção:** As versões corrigidas (Gabarito) serão postadas nos espaços em branco ao final do minicurso!
 
