@@ -20,11 +20,11 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
 1. Pegue os arquivos deste repositório:
    ```bash
 	# Assumindo que o WSL do Windows com Ubuntu min 20.04 está instalado faça:
-   		1 - crie uma pasta na home do Ubuntu (usando o explorer do win mesmo)
-   		2 - copie o script do diretório desafio_app_via_docker
-   		3 - abra o WSL, e vá até o diretório criado
+   		1 - crie uma pasta na home do Ubuntu (usando o explorer do win mesmo).
+   		2 - copie o script do diretório desafio_app_via_docker.
+   		3 - abra o WSL, e vá até o diretório criado.
    		4 - rode o script setup_lab com o comando sh [nome do script]
-   		5 - Pronto! A suite de desafios da equipe estará pronta
+   		5 - Pronto! A suite de desafios da equipe estará pronta.
     # 
    ```
 2. Para as práticas de aprendizagem, todos os apps rodam facilmente com os comandos:
@@ -33,7 +33,7 @@ Para garantir que todos tenham o mesmo ambiente isolado e sem conflitos de depen
    		1 - crie um diretório na unidade D, entre no diretório, crie o ambiente
    			virtual com: python3 -m venv venv
    			1.1 - para ativar o virtual env faça: venv\Scripts\activate.bat
-   			1.2 - rodde o app com python 3 [nome do app].py
+   			1.2 - rode o app com: python3 [nome do app].py
     # Nodejs (pratica 2)
    		1 - crie um diretório chamado node e faça:
    			1.1 - node init -y
